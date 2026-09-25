@@ -2,13 +2,13 @@
 
 Linear MCP — wraps the Linear GraphQL API (OAuth)
 
-Part of [Pipeworx](https://pipeworx.io) — an MCP gateway connecting AI agents to 1476+ live data sources.
+Part of [Pipeworx](https://pipeworx.io) — an MCP gateway connecting AI agents to 1679+ live data sources.
 
 ## Tools
 
 | Tool | Description |
 |------|-------------|
-| `linear_list_issues` | Browse issues in your Linear workspace with optional filters by state, priority, or assignee. Returns issue ID, title, state, priority, assignee, and URL. |
+| `linear_list_issues` | Browse issues in your Linear workspace, filtered by TEAM, DATE RANGE, state, priority, assignee, project, cycle, or labels u2014 alone or combined. `filter` is Linear's own IssueFilter, so anything IssueFilter expresses works here: filter one team ({"team":{"key":{"eq":"ENG"}}}), a date window ({"updatedAt":{"gte":"-P2W"}}), or several DIFFERENT filter sets at once via `or`. Returns issue ID, title, state, priority, assignee, and URL, newest-updated first. |
 | `linear_get_issue` | Get full details of a Linear issue by ID (e.g., "ABC-123"). Returns title, description, state, priority, assignee, labels, comments, and URL. |
 | `linear_create_issue` | Create a new issue in Linear with title and optional description. Returns issue ID, key, title, and URL. |
 | `linear_list_teams` | List all teams in your Linear workspace. Returns team ID, name, key, and description. |
@@ -58,9 +58,39 @@ directly, instead of just this one's:
 }
 ```
 
-Both URLs reach the same gateway and the same 1476+ data sources. The
+Both URLs reach the same gateway and the same 1679+ data sources. The
 only difference is which pack's tools are listed **directly**; `ask_pipeworx`
 reaches all of them from either one.
+
+## No MCP client? Call it over HTTP
+
+This pack runs against a connected linear account, so it needs a Pipeworx key: sign in at https://pipeworx.io/account, connect linear, then call `POST https://gateway.pipeworx.io/v1/tools/linear_list_issues` with `Authorization: Bearer <your Pipeworx key>`. Inspect any tool: `GET https://gateway.pipeworx.io/v1/tools/linear_list_issues`. Find one: `POST https://gateway.pipeworx.io/v1/tools/search_packs` with `{"query":"..."}`.
+
+## Standalone (no gateway account)
+
+This package also runs as a local stdio MCP server — no Pipeworx account, no
+gateway round-trip:
+
+```json
+{
+  "mcpServers": {
+    "linear": {
+      "command": "npx",
+      "args": ["-y", "@pipeworx/mcp-linear"]
+    }
+  }
+}
+```
+
+Or run it directly to confirm it starts:
+
+```bash
+npx -y @pipeworx/mcp-linear
+```
+
+It speaks MCP over stdin/stdout and answers `initialize`/`tools/list`/`tools/call`
+for **only** this pack's tools — none of the shared meta-tools the gateway
+connection above adds. Same source, same tools, no ask_pipeworx routing.
 
 ## Using with ask_pipeworx
 
@@ -81,7 +111,3 @@ The gateway picks the right tool and fills the arguments automatically.
 ## License
 
 MIT
-
-## No MCP client? Call it over HTTP
-
-This pack runs against a connected linear account, so it needs a Pipeworx key: sign in at https://pipeworx.io/account, connect linear, then call `POST https://gateway.pipeworx.io/v1/tools/linear_list_issues` with `Authorization: Bearer <your Pipeworx key>`. Inspect any tool: `GET https://gateway.pipeworx.io/v1/tools/linear_list_issues`. Find one: `POST https://gateway.pipeworx.io/v1/tools/search_packs` with `{"query":"..."}`.
