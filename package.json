@@ -1,6 +1,6 @@
 {
   "name": "@pipeworx/mcp-linear",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Linear MCP — wraps the Linear GraphQL API (OAuth)",
   "type": "module",
   "main": "src/index.ts",
@@ -26,7 +26,7 @@
     "@cloudflare/workers-types": "^4.20260405.1"
   },
   "pipeworx": {
-    "sourceHash": "v1-ff78a4ff00dae68335580519562e53db7bfb584e980c6311b85e00ea4ac51f90",
-    "sourceCommit": "adb69d997f82a62e8e22b594488c7d04a227db35"
+    "sourceHash": "v1-ca3447ad1a865ce2c53ea12d1a232cbb069c0193cdb8cfb27e26fca3c1a561a8",
+    "sourceCommit": "1064560fd9dcd0d6fc2606298c2ba244b3a1fbeb"
   }
 }
