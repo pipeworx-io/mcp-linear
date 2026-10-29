@@ -1,12 +1,20 @@
 {
   "name": "@pipeworx/mcp-linear",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Linear MCP — wraps the Linear GraphQL API (OAuth)",
   "type": "module",
-  "main": "src/index.ts",
-  "types": "src/index.ts",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./tools.json": "./tools.json",
+    "./package.json": "./package.json"
+  },
   "bin": {
     "mcp-linear": "bin/cli.js"
+  },
+  "files": ["bin/", "lib/", "tools.json", "server.json"],
+  "engines": {
+    "node": ">=18"
   },
   "keywords": ["mcp", "mcp-server", "model-context-protocol", "pipeworx", "linear"],
   "license": "MIT",
@@ -14,19 +22,12 @@
     "type": "git",
     "url": "git+https://github.com/pipeworx-io/mcp-linear.git"
   },
-  "scripts": {
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.30.0",
-    "tsx": "^4.19.0"
-  },
-  "devDependencies": {
-    "typescript": "^5.9.3",
-    "@cloudflare/workers-types": "^4.20260405.1"
-  },
+  "mcpName": "io.github.pipeworx-io/linear",
   "pipeworx": {
-    "sourceHash": "v1-a628f7455fb3d3c514003de00121a5481f5fbd2db90563a8109a85c8ba8b47e4",
-    "sourceCommit": "33741fe6d9ba71856e73fa683c73572d1ddf2e93"
+    "mode": "gateway",
+    "slug": "linear",
+    "gatewaySlug": "linear",
+    "sourceHash": "v1-f39e61a2882279c7e6e63390afcfe4dcef03b8cedc9a386d3905d38f80b1d7c7",
+    "sourceCommit": "5c89d6abb778d45da5d92002eb251978622bedf9"
   }
 }
